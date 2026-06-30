@@ -68,6 +68,17 @@ public class EnviaMensagemController {
                             null
                     ));
         }
+        //verificando se a mensagem ja existe
+        if (mensagemRepository.existsByMensagem(request.mensagem())) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new StatusResponse(
+                            409,
+                            "ERRO",
+                            "Mensagem já cadastrada",
+                            null
+                    ));
+        }
 
         // Salva no banco
         Mensagem novaMensagem = new Mensagem();

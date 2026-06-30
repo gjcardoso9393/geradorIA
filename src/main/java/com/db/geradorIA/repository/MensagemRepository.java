@@ -19,10 +19,11 @@ public interface MensagemRepository extends JpaRepository<Mensagem, Long> {
     void atualizarEtapa(@Param("id") Long id,
                         @Param("etapaId") Integer etapaId);
 
-
     @Modifying
     @Transactional
     @Query("UPDATE Mensagem m SET m.path = :path WHERE m.id = :id")
     void atualizarPath(@Param("id") Long id,
-                        @Param("path") String etapa);
+                       @Param("path") String etapa);
+
+    boolean existsByMensagem(String mensagem);
 }

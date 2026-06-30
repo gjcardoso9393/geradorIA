@@ -1,24 +1,21 @@
 package com.db.geradorIA.service;
 
 import com.db.geradorIA.dto.MensagemEvent;
-import com.db.geradorIA.entity.Mensagem;
 import com.db.geradorIA.entity.MensagemSla;
+import com.db.geradorIA.repository.PalavraProibidaRepository;
 import com.db.geradorIA.repository.MensagemRepository;
 import com.db.geradorIA.repository.MensagemSlaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
-public class MensagemProcessorService {
+public class MensagemProcessorValidador {
+    @Autowired
+    private PalavraProibidaRepository palavraProibidaRepository;
 
-    private static final String[] PALAVRAS_PROIBIDAS = {
-            "spam",
-            "fraude",
-            "proibido"
-    };
+
+
 
     @Autowired
     private MensagemRepository mensagemRepository;
@@ -61,15 +58,26 @@ public class MensagemProcessorService {
      * Valida se a mensagem contém palavras proibidas
      */
     private boolean contemPalavraProibida(String mensagem) {
-        if (mensagem == null) return false;
+
+        if (mensagem == null) {
+            return false;
+        }
 
         String texto = mensagem.toLowerCase();
 
-        for (String palavra : PALAVRAS_PROIBIDAS) {
-            if (texto.contains(palavra.toLowerCase())) {
+        var palavrasProibidas = palavraProibidaRepository.findAll();
+
+        for (var palavra : palavrasProibidas) {
+
+            if (palavra.getPalavra() == null) {
+                continue;
+            }
+
+            if (texto.contains(palavra.getPalavra().toLowerCase())) {
                 return true;
             }
         }
+
         return false;
     }
 }
