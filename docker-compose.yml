@@ -68,3 +68,18 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
       KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+
+  image-generate:
+    container_name: image-generate
+    build:
+      context: ./image-generate
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - kafka
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ia-image-generator
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
