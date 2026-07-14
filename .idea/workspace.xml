@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46738478-f383-4303-a7bb-d2505f515d9f" name="Changes" comment="Imagens">
+    <list default="true" id="46738478-f383-4303-a7bb-d2505f515d9f" name="Changes" comment="Teste">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/consumer/ImageRequestGenerate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/MensagemProcessorGenerate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-generate/src/main/java/com/db/imagegenerate/service/MensagemProcessorGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-generate/src/main/java/com/db/imagegenerate/service/MensagemProcessorGenerate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-request/src/main/java/com/db/imagerequest/controller/EnviaMensagemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-request/src/main/java/com/db/imagerequest/controller/EnviaMensagemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-request/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/image-request/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/entity/Mensagem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/entity/MensagemSla.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/repository/MensagemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/repository/MensagemSlaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/MensagemProcessorValidador.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/MensagemProcessorValidador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +165,31 @@
       <option name="project" value="LOCAL" />
       <updated>1782908022239</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Cria micro Gerador de imagens">
+      <option name="closed" value="true" />
+      <created>1784035642552</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784035642553</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Cria micro Gerador de imagens">
+      <option name="closed" value="true" />
+      <created>1784035655764</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784035655764</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Teste">
+      <option name="closed" value="true" />
+      <created>1784035736427</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1784035736427</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +198,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implementação da palavra proibida no banco" />
     <MESSAGE value="Imagens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Imagens" />
+    <MESSAGE value="Cria micro Gerador de imagens" />
+    <MESSAGE value="Teste" />
+    <option name="LAST_COMMIT_MESSAGE" value="Teste" />
   </component>
 </project>

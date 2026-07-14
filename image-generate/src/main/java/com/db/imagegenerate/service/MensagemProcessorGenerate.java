@@ -2,6 +2,7 @@ package com.db.imagegenerate.service;
 
 import com.db.imagegenerate.dto.MensagemEvent;
 import com.db.imagegenerate.entity.MensagemSla;
+import com.db.imagegenerate.entity.Mensagem;
 import com.db.imagegenerate.repository.MensagemRepository;
 import com.db.imagegenerate.repository.MensagemSlaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,16 +56,28 @@ public class MensagemProcessorGenerate {
 
             System.out.println("Imagem salva com sucesso!");
 
-            MensagemSla novaMensagemSla = new MensagemSla();
-            novaMensagemSla.setMensagemId(event.getMensagemId());
+            Mensagem novaMensagem = new Mensagem();
+            novaMensagem.setMensagem(event.getMensagem());
+            novaMensagem.setEtapaId(4);
+            novaMensagem.setPath(caminho);
+            //mensagemRepository.saveAndFlush(novaMensagem);
+            //System.out.println("ID SALVO: " + novaMensagem.getMensagemId());
+            mensagemRepository.save(novaMensagem);
 
-            mensagemRepository.atualizarEtapa(event.getMensagemId(), 4);
+
+            MensagemSla novaMensagemSla = new MensagemSla();
+            novaMensagemSla.setMensagemId(novaMensagem.getMensagemId());
+
             novaMensagemSla.setEtapaId(4);
             novaMensagemSla.setObs("Imagem Gerada");
 
             mensagemSlaRepository.save(novaMensagemSla);
 
-            mensagemRepository.atualizarPath(event.getMensagemId(), caminho);
+
+
+
+            //mensagemRepository.atualizarEtapa(event.getMensagemId(), 4);
+           // mensagemRepository.atualizarPath(event.getMensagemId(), caminho);
 
 
         } catch (Exception e) {

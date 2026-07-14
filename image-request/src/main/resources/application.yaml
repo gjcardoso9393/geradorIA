@@ -6,9 +6,9 @@ spring:
     name: image-request
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/ia-image-generator}
-    username: ${SPRING_DATASOURCE_USERNAME:admin}
-    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5435/ia-image-generate}
+    username: ${SPRING_DATASOURCE_USERNAME:admin3}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin3}
 
   jpa:
     hibernate:

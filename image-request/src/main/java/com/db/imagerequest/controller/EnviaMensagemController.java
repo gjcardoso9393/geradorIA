@@ -109,7 +109,7 @@ public class EnviaMensagemController {
                 new StatusResponse(
                         200,
                         "SUCESSO",
-                        "Mensagem salva com sucesso",
+                        "Mensagem salva com sucesso!!",
                         request.mensagem()
                 )
         );

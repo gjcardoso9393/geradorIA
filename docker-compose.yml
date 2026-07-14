@@ -1,15 +1,37 @@
 services:
 
-  postgres:
+  postgres-request:
     image: postgres:16
-    container_name: postgres
+    container_name: postgres-request
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ia-image-generator
+      POSTGRES_DB: ia-image-request
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
       - "5433:5432"
+
+  postgres-validate:
+    image: postgres:16
+    container_name: postgres-validate
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ia-image-validate
+      POSTGRES_USER: admin2
+      POSTGRES_PASSWORD: admin2
+    ports:
+      - "5434:5432"
+
+  postgres-generate:
+    image: postgres:16
+    container_name: postgres-generate
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ia-image-generate
+      POSTGRES_USER: admin3
+      POSTGRES_PASSWORD: admin3
+    ports:
+      - "5435:5432"
 
   kafka:
     image: apache/kafka:latest
@@ -46,10 +68,10 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - postgres-request
       - kafka
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ia-image-generator
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-request:5432/ia-image-request
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
       KAFKA_BOOTSTRAP_SERVERS: kafka:9093
@@ -61,12 +83,12 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - postgres
+      - postgres-validate
       - kafka
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ia-image-generator
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-validate:5432/ia-image-validate
+      SPRING_DATASOURCE_USERNAME: admin2
+      SPRING_DATASOURCE_PASSWORD: admin2
       KAFKA_BOOTSTRAP_SERVERS: kafka:9093
 
   image-generate:
@@ -76,10 +98,10 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - postgres
+      - postgres-generate
       - kafka
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ia-image-generator
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-generate:5432/ia-image-generate
+      SPRING_DATASOURCE_USERNAME: admin3
+      SPRING_DATASOURCE_PASSWORD: admin3
       KAFKA_BOOTSTRAP_SERVERS: kafka:9093

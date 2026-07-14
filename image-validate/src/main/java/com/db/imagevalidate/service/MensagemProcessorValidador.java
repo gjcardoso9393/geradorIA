@@ -1,10 +1,7 @@
 package com.db.imagevalidate.service;
 
 import com.db.imagevalidate.dto.MensagemEvent;
-import com.db.imagevalidate.entity.MensagemSla;
 import com.db.imagevalidate.repository.PalavraProibidaRepository;
-import com.db.imagevalidate.repository.MensagemRepository;
-import com.db.imagevalidate.repository.MensagemSlaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -17,11 +14,11 @@ public class MensagemProcessorValidador {
 
 
 
-    @Autowired
+    /*@Autowired
     private MensagemRepository mensagemRepository;
 
     @Autowired
-    private MensagemSlaRepository mensagemSlaRepository;
+    private MensagemSlaRepository mensagemSlaRepository;*/
 
     @Autowired
     private KafkaTemplate<String, MensagemEvent> kafkaTemplate;
@@ -33,25 +30,25 @@ public class MensagemProcessorValidador {
         boolean temPalavraProibida = contemPalavraProibida(event.getMensagem());
 
         //sla
-        MensagemSla novaMensagemSla = new MensagemSla();
-        novaMensagemSla.setMensagemId(event.getMensagemId());
+       /* MensagemSla novaMensagemSla = new MensagemSla();
+        novaMensagemSla.setMensagemId(event.getMensagemId());*/
         if (temPalavraProibida) {
 
-            mensagemRepository.atualizarEtapa(event.getMensagemId(), 3);
+            /*mensagemRepository.atualizarEtapa(event.getMensagemId(), 3);
 
             novaMensagemSla.setEtapaId(3);
-            novaMensagemSla.setObs("Mensagem com palavra proibida!");
+            novaMensagemSla.setObs("Mensagem com palavra proibida!");*/
 
             kafkaTemplate.send("image-request-dlq", event);
         } else {
-            mensagemRepository.atualizarEtapa(event.getMensagemId(), 2);
+           /* mensagemRepository.atualizarEtapa(event.getMensagemId(), 2);
             novaMensagemSla.setEtapaId(2);
-            novaMensagemSla.setObs("Mensagem sem palavras proibidas!");
+            novaMensagemSla.setObs("Mensagem sem palavras proibidas!");*/
 
             kafkaTemplate.send("image-approved", event);
         }
 
-        mensagemSlaRepository.save(novaMensagemSla);
+        //mensagemSlaRepository.save(novaMensagemSla);
     }
 
     /**

@@ -6,9 +6,9 @@ spring:
     name: image-validate
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/ia-image-generator}
-    username: ${SPRING_DATASOURCE_USERNAME:admin}
-    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5434/ia-image-validate}
+    username: ${SPRING_DATASOURCE_USERNAME:admin2}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin2}
 
   jpa:
     hibernate:
