@@ -5,13 +5,12 @@ import com.db.imagevalidate.repository.PalavraProibidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class MensagemProcessorValidador {
     @Autowired
-    private PalavraProibidaRepository palavraProibidaRepository;
-
-
+    private PalavraProibidaCacheService cacheService;
 
 
     /*@Autowired
@@ -54,27 +53,15 @@ public class MensagemProcessorValidador {
     /**
      * Valida se a mensagem contém palavras proibidas
      */
-    private boolean contemPalavraProibida(String mensagem) {
+        private boolean contemPalavraProibida(String mensagem){
 
-        if (mensagem == null) {
-            return false;
+            List<String> palavras = cacheService.buscarPalavras();
+
+            String texto = mensagem.toLowerCase();
+
+            return palavras.stream()
+                    .map(String::toLowerCase)
+                    .anyMatch(texto::contains);
+
         }
-
-        String texto = mensagem.toLowerCase();
-
-        var palavrasProibidas = palavraProibidaRepository.findAll();
-
-        for (var palavra : palavrasProibidas) {
-
-            if (palavra.getPalavra() == null) {
-                continue;
-            }
-
-            if (texto.contains(palavra.getPalavra().toLowerCase())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

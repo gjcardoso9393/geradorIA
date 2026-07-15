@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46738478-f383-4303-a7bb-d2505f515d9f" name="Changes" comment="Teste">
+    <list default="true" id="46738478-f383-4303-a7bb-d2505f515d9f" name="Changes" comment="Adicionando bancos diferentes e separando aplicação">
+      <change afterPath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/PalavraProibidaCacheService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-generate/src/main/java/com/db/imagegenerate/service/MensagemProcessorGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-generate/src/main/java/com/db/imagegenerate/service/MensagemProcessorGenerate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-request/src/main/java/com/db/imagerequest/controller/EnviaMensagemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-request/src/main/java/com/db/imagerequest/controller/EnviaMensagemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-request/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/image-request/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/entity/Mensagem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/entity/MensagemSla.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/repository/MensagemRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/repository/MensagemSlaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/controller/SalvaPalavraProibidaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/controller/SalvaPalavraProibidaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/MensagemProcessorValidador.java" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/src/main/java/com/db/imagevalidate/service/MensagemProcessorValidador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image-validate/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/image-validate/src/main/resources/application.yaml" afterDir="false" />
     </list>
@@ -71,6 +66,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.GeradorIaApplication.executor": "Run",
     "Spring Boot.ImageRequestApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
@@ -189,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784035736427</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Adicionando bancos diferentes e separando aplicação">
+      <option name="closed" value="true" />
+      <created>1784052309045</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1784052309045</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +204,7 @@
     <MESSAGE value="Imagens" />
     <MESSAGE value="Cria micro Gerador de imagens" />
     <MESSAGE value="Teste" />
-    <option name="LAST_COMMIT_MESSAGE" value="Teste" />
+    <MESSAGE value="Adicionando bancos diferentes e separando aplicação" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adicionando bancos diferentes e separando aplicação" />
   </component>
 </project>

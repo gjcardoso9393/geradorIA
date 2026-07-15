@@ -2,37 +2,30 @@ package com.db.imagevalidate.controller;
 
 import com.db.imagevalidate.dto.SalvaPalavraRequest;
 import com.db.imagevalidate.dto.StatusResponse;
-
 import com.db.imagevalidate.entity.PalavraProibida;
 import com.db.imagevalidate.repository.PalavraProibidaRepository;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.db.imagevalidate.service.PalavraProibidaCacheService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@EnableKafka
-@SpringBootApplication
 public class SalvaPalavraProibidaController {
-    //implementar depois
+
     private static final String TOKEN_VALIDO = "123456";
     private static final String TOKEN_VALIDO_SEM_PERMISSAO = "1234567";
 
-
-
     private final PalavraProibidaRepository palavraProibidaRepository;
-    private PalavraProibidaRepository repositorypalavraproibida;
-
-
+    private final PalavraProibidaCacheService cacheService;
 
     public SalvaPalavraProibidaController(
-            PalavraProibidaRepository palavraProibidaRepository) {
+            PalavraProibidaRepository palavraProibidaRepository,
+            PalavraProibidaCacheService cacheService) {
 
         this.palavraProibidaRepository = palavraProibidaRepository;
+        this.cacheService = cacheService;
     }
-
 
     @GetMapping("/palavras")
     public ResponseEntity<?> listarPalavras(
@@ -52,20 +45,17 @@ public class SalvaPalavraProibidaController {
                 new StatusResponse(
                         200,
                         "SUCESSO",
-                        "Lista de Palvras",
-                        palavraProibidaRepository.findAll()
+                        "Lista de Palavras",
+                        cacheService.buscarPalavras()
+                        //palavraProibidaRepository.findAll()
                 )
         );
-
-
     }
 
     @DeleteMapping("/palavras_delete/{id}")
     public ResponseEntity<?> deletarPalavra(
             @RequestHeader(value = "Authorization", required = false) String token,
             @PathVariable Long id) {
-
-        // Validação do token
 
         if (token == null || (!token.equals(TOKEN_VALIDO) && !token.equals(TOKEN_VALIDO_SEM_PERMISSAO))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -75,17 +65,19 @@ public class SalvaPalavraProibidaController {
                             "Token inválido",
                             null
                     ));
-        }else if(token.equals(TOKEN_VALIDO_SEM_PERMISSAO)){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new StatusResponse(
-                    401,
-                    "ERRO",
-                    "Rota sem Autorização",
-                    null
-            ));
+        }
+
+        if (token.equals(TOKEN_VALIDO_SEM_PERMISSAO)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new StatusResponse(
+                            401,
+                            "ERRO",
+                            "Rota sem autorização",
+                            null
+                    ));
         }
 
         if (!palavraProibidaRepository.existsById(id)) {
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new StatusResponse(
                             404,
@@ -96,6 +88,9 @@ public class SalvaPalavraProibidaController {
         }
 
         palavraProibidaRepository.deleteById(id);
+
+        // Atualiza o cache
+        cacheService.atualizarCache();
 
         return ResponseEntity.ok(
                 new StatusResponse(
@@ -112,8 +107,6 @@ public class SalvaPalavraProibidaController {
             @RequestHeader(value = "Authorization", required = false) String token,
             @RequestBody SalvaPalavraRequest request) {
 
-        // Validação do token
-
         if (token == null || (!token.equals(TOKEN_VALIDO) && !token.equals(TOKEN_VALIDO_SEM_PERMISSAO))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new StatusResponse(
@@ -122,16 +115,18 @@ public class SalvaPalavraProibidaController {
                             "Token inválido",
                             null
                     ));
-        }else if(token.equals(TOKEN_VALIDO_SEM_PERMISSAO)){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new StatusResponse(
-                    401,
-                    "ERRO",
-                    "Rota sem Autorização",
-                    null
-            ));
         }
 
-        // Validação da mensagem
+        if (token.equals(TOKEN_VALIDO_SEM_PERMISSAO)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new StatusResponse(
+                            401,
+                            "ERRO",
+                            "Rota sem autorização",
+                            null
+                    ));
+        }
+
         if (request.palavra() == null || request.palavra().isBlank()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new StatusResponse(
@@ -141,10 +136,9 @@ public class SalvaPalavraProibidaController {
                             null
                     ));
         }
-        //verificando se a mensagem ja existe
-        if (palavraProibidaRepository.existsByPalavra(request.palavra().toLowerCase())) {
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        if (palavraProibidaRepository.existsByPalavra(request.palavra().toLowerCase())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new StatusResponse(
                             409,
                             "ERRO",
@@ -153,12 +147,14 @@ public class SalvaPalavraProibidaController {
                     ));
         }
 
-        //sla
         PalavraProibida novaPalavraProibida = new PalavraProibida();
         novaPalavraProibida.setPalavra(request.palavra().toLowerCase());
+
         palavraProibidaRepository.save(novaPalavraProibida);
 
-        // Retorna sucesso
+        // Atualiza o cache
+        cacheService.atualizarCache();
+
         return ResponseEntity.ok(
                 new StatusResponse(
                         200,
