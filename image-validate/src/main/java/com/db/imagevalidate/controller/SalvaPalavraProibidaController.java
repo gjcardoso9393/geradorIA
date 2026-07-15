@@ -40,7 +40,6 @@ public class SalvaPalavraProibidaController {
                             null
                     ));
         }
-
         return ResponseEntity.ok(
                 new StatusResponse(
                         200,
